@@ -1,14 +1,19 @@
-const { PORT = 5000 } = process.env;
+const express = require('express')
+const cors = require('cors')
 
-const app = require("./app");
-const knex = require("./db/connection");
+const app = express()
+const router = express.Router()
+const PORT = process.env.PORT || 5000
 
-const listener = () => console.log(`Listening on Port ${PORT}!`);
+router.get('/', cors(), (req, res) => {
+  res.json({ message:
+  'Welcome! You can access the data using these routes: /movies, /reviews, /theaters, /reviews/:reviewId, /movies/:movieId, /movies/:movieId/theaters, and /movies/:movieId/reviews.'});
+})
 
-knex.migrate
-  .latest()
-  .then((migrations) => {
-    console.log("migrations", migrations);
-    app.listen(PORT, listener);
-  })
-  .catch(console.error);
+app.use('/', router);
+
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT} `);
+})
+
+module.exports = app
