@@ -18,13 +18,13 @@ router
     .all(methodNotAllowed);
 
 router
-    .route('/?is_showing=true')
-    .get(controller.list)
+    .route("/:movieId")
+    .get(controller.read)
     .all(methodNotAllowed);
 
 router
-    .route('/')
+    .route("/")
     .get(controller.list)
-    .all(methodNotAllowed);
+    .all(methodNotAllowed)
 
 module.exports = router;
