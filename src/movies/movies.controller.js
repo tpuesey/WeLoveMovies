@@ -1,5 +1,5 @@
- const services = require("./movies.services")
- const asyncErrorBoundary = require("../erros/asyncErrorBoundary");
+const services = require("./movies.services");
+ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
  //added middleware
  async function movieExists(req, res, next) {
