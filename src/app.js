@@ -9,23 +9,16 @@ const moviesRouter = require("./movies/movies.router")
 const reviewsRouter = require("./reviews/reviews.router");
 const theatersRouter = require("./theaters/theaters.router");
 
-app.use(cors());
+
+
 app.use(express.json());
+app.use(cors());
 
 app.use("/movies", moviesRouter);
-app.use("/theaters", theatersRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/theaters", theatersRouter);
+app.use("/");
 
-// Not found handler
-app.use((request, response, next) => {
-  next({ status: 404, message: `Not found: ${request.originalUrl}` });
-});
-
-// Error handler
-app.use((error, request, response, next) => {
-  console.error(error);
-  const { status = 500, message = "Something went wrong!" } = error;
-  response.status(status).json({ error: message });
-});
-
+app.use(notFound);
+app.use(errorHandler);
 module.exports = app;
